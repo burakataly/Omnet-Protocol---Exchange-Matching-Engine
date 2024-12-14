@@ -34,13 +34,13 @@ public class MessageParser {
         receivedMessage.position(0);
 
         byte start = receivedMessage.get();
-        if(start != (byte) 0xAA){
+        if(start != Constants.START_BYTE){
             System.out.printf("ERROR: %s...\n", MessageParserResult.WRONG_MESSAGE_START);
             return null;
         }
 
         short dataLength = receivedMessage.getShort();
-        if(dataLength + Constants.MESSAGE_LENGTH_EXCEPT_DATA != size){
+        if(dataLength + Constants.MESSAGE_LENGTH_EXCEPT_DATA_AND_COMMAND != size){
             System.out.printf("ERROR: %s...\n", MessageParserResult.SIZE_MISMATCH);
             return null;
         }

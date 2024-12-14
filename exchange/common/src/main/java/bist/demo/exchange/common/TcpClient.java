@@ -1,5 +1,7 @@
 package bist.demo.exchange.common;
 
+import bist.demo.exchange.common.message.HexShower;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -50,21 +52,16 @@ public class TcpClient {
         }
     }
 
-    public boolean send(ByteBuffer buffer) throws IOException {
+    public void send(ByteBuffer sendingBuffer) throws IOException {
         if (socket == null) {
-
             System.err.println("Connection is not available.");
-            return false;
+            return;
         }
 
         OutputStream outputStream = socket.getOutputStream(); //socketin bufferına yazmak için
-
-        byte[] bytes = new byte[buffer.remaining()];
-        buffer.get(bytes); //bu iki satır bytebuffer nesnesinden byte dizisi elde ediyor
-
+        byte[] bytes = new byte[sendingBuffer.remaining()];
+        sendingBuffer.get(bytes); //bu iki satır bytebuffer nesnesinden byte dizisi elde ediyor
         outputStream.write(bytes); //byte dizisi socketin kerneldeki bufferına yazılıyo
-
-        return true;
     }
 
     public ByteBuffer handleResponses() {

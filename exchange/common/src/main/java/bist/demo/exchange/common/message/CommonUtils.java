@@ -19,12 +19,12 @@ public class CommonUtils {
         return calculatedCRC % 256;
     }
 
-    public static ByteBuffer createOuchMessage(int command, byte[] data){
+    public static ByteBuffer createOuchMessage(byte command, byte[] data){
         int dataLength = data.length;
-        ByteBuffer byteBuffer = ByteBuffer.allocate(dataLength + 5);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(dataLength + 1 + Constants.MESSAGE_LENGTH_EXCEPT_DATA_AND_COMMAND);
         byteBuffer.put((byte) 0xAA);
         byteBuffer.putShort((short) (1 + data.length));
-        byteBuffer.put((byte) command);
+        byteBuffer.put(command);
         byteBuffer.put(data);
         byteBuffer.put((byte) calculateCRC(byteBuffer.array())); //byteBuffer.array() tüm
         // allocate edilen bufferı array olarak döndürecek. yani crc için olan son

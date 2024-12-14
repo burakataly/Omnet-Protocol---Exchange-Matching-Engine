@@ -2,6 +2,7 @@ package bist.demo.exchange.matching.engine;
 
 import bist.demo.exchange.common.BufferHandler;
 import bist.demo.exchange.common.ClientHandle;
+import bist.demo.exchange.common.Constants;
 import bist.demo.exchange.common.message.Command;
 import bist.demo.exchange.common.message.CommonUtils;
 import bist.demo.exchange.common.TcpServer;
@@ -10,6 +11,7 @@ import bist.demo.exchange.common.message.MessageParser;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 
 /*
 * serverın application layer tarafı. tcp server ile bağlantı kuruyo. tcpServer'ın
@@ -21,6 +23,7 @@ public class MatchingEngine implements BufferHandler {
     private final int port;
     private final TcpServer tcpServer;
     private final MessageParser messageParser;
+    private final HashMap<String, Orderbook> orderbookCache;
 
     public MatchingEngine(String host, int port) {
         this.host = host;
@@ -30,6 +33,8 @@ public class MatchingEngine implements BufferHandler {
 
         messageParser = new MessageParser(this::handleDefaultMessage);
         messageParser.addParser(Command.HEARTBEAT, this::handleHeartbeat);
+        messageParser.addParser(Command.SEND_ORDER, this::handleNewOrder);
+        orderbookCache = new HashMap<>();
     }
 
     @Override
@@ -55,9 +60,33 @@ public class MatchingEngine implements BufferHandler {
     private ByteBuffer handleHeartbeat(Command command, ByteBuffer data) {
         int sequenceNumber = data.getInt();
         System.out.printf("Heartbeat command received. sequence number: %d\n", sequenceNumber);
-        ByteBuffer dataBuffer = ByteBuffer.allocate(4);
+        ByteBuffer dataBuffer = ByteBuffer.allocate(Constants.HEARTBEAT_DATA_LENGTH);
         dataBuffer.putInt(sequenceNumber + 1);
         return CommonUtils.createOuchMessage(command.getValue(), dataBuffer.array());
+    }
+
+    private ByteBuffer handleNewOrder(Command command, ByteBuffer data){
+        byte side = data.get();
+
+        StringBuilder commodity = new StringBuilder();
+
+        for (int i = 0; i < 5; i++) {
+            commodity.append((char) data.get());
+        }
+
+        int quantity = data.getInt();
+        int price = data.getInt();
+
+        System.out.printf("New order command received. side: %c, commodity: %s, quantity: %d, price: %d\n",
+                side, commodity, quantity, price);
+
+        orderbookCache.computeIfAbsent(commodity.toString(), x -> new Orderbook(commodity.toString()));
+
+        Orderbook orderbook = orderbookCache.get(commodity.toString());
+
+        orderbook.handleNewOrder(side, quantity, price);
+        orderbook.print();
+        return null;
     }
 
     public void start() throws IOException {

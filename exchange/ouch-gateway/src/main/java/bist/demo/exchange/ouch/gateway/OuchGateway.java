@@ -1,10 +1,8 @@
 package bist.demo.exchange.ouch.gateway;
 
-import bist.demo.exchange.common.message.Command;
-import bist.demo.exchange.common.message.CommonUtils;
+import bist.demo.exchange.common.Constants;
+import bist.demo.exchange.common.message.*;
 import bist.demo.exchange.common.TcpClient;
-import bist.demo.exchange.common.message.HexShower;
-import bist.demo.exchange.common.message.MessageParser;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -23,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 * Bu sayede app layer business logicle ilgileniyor ve tcp layerda ne olup bittiğinden haberi
 * olmuyor
 */
-public class OuchGateway {
+public class OuchGateway implements ClientMessageHandler {
     private final String host;
     private final int port;
     private static int index = 0;
@@ -73,9 +71,13 @@ public class OuchGateway {
 
     private void sendHeartbeat() {
         //System.out.printf("OuchGateWay %d\n", gatewayIndex);
-        ByteBuffer data = ByteBuffer.allocate(4);
+        ByteBuffer data = ByteBuffer.allocate(Constants.HEARTBEAT_DATA_LENGTH);
         data.putInt(heartBeatSeq);
-        ByteBuffer byteBuffer = CommonUtils.createOuchMessage(Command.HEARTBEAT.getValue(), data.array());
+        sendMessage(Command.HEARTBEAT, data);
+    }
+
+    public void sendMessage(Command command, ByteBuffer data) {
+        ByteBuffer byteBuffer = CommonUtils.createOuchMessage(command.getValue(), data.array());
         try {
             tcpClient.send(byteBuffer);
             System.out.printf("Sent size: %d\n", byteBuffer.array().length);
@@ -88,6 +90,7 @@ public class OuchGateway {
         System.out.println("---------------------------------------------");
     }
 
+    @Override
     public void handleResponse(){
         ByteBuffer buffer = tcpClient.handleResponses();
         messageParser.parseReceivedMessage(buffer);
@@ -113,7 +116,7 @@ public class OuchGateway {
     }
 
     public void stop() throws IOException {
-        threadPool.shutdown(); //thread havuzunu freeliyo
+        threadPool.shutdown();
         tcpClient.close();
         threadPool = null;
         tcpClient = null;
