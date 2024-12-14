@@ -22,15 +22,13 @@ import java.nio.ByteBuffer;
 */
 
 public class TcpClient {
-    private static final int BUFFER_CAPACITY = 4096;
-
     private final String host;
 
     private final int port; //bağlanılmak istenen server'ın çalıştığı port
 
     private Socket socket = null;
 
-    private ByteBuffer buffer = ByteBuffer.allocate(BUFFER_CAPACITY);;
+    private ByteBuffer buffer = ByteBuffer.allocate(Constants.BUFFER_CAPACITY);;
 
 
     public TcpClient(String host, int port) {

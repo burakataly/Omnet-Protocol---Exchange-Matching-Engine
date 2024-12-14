@@ -1,5 +1,7 @@
 package bist.demo.exchange.common.message;
 
+import bist.demo.exchange.common.Constants;
+
 import java.nio.ByteBuffer;
 
 public class CommonUtils {
@@ -32,19 +34,4 @@ public class CommonUtils {
         return byteBuffer;
     }
 
-    public static boolean isInvalidOuchMessage(ByteBuffer buffer){
-        if(buffer.get(0) != (byte) 0xAA){
-            System.out.println("Invalid start byte...");
-            return true;
-        }
-        if(buffer.getShort(1) + 4 != buffer.remaining()){
-            System.out.println("Invalid message length...");
-            return true;
-        }
-        if(COMMAND.isInvalidCommand(buffer.get(3))){
-            System.out.println("Invalid command type...");
-            return true;
-        }
-        return false;
-    }
 }

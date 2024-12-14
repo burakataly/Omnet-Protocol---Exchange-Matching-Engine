@@ -98,6 +98,7 @@ public class TcpServer {
     }
 
     private void printStats() {
+        System.out.println("---------------------------------------------");
         System.out.printf("Connected client count: %d\n", connectedClients.size());
         System.out.println("---------------------------------------------");
     }

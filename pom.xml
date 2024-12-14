@@ -13,7 +13,6 @@
     <name>${project.artifactId}-${project.version}</name>
 
 	<modules>
-		<module>solid</module>
 		<module>exchange</module>
 	</modules>
 	

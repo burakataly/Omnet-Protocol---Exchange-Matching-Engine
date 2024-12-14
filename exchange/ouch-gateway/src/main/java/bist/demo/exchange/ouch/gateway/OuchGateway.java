@@ -1,9 +1,10 @@
 package bist.demo.exchange.ouch.gateway;
 
-import bist.demo.exchange.common.message.COMMAND;
+import bist.demo.exchange.common.message.Command;
 import bist.demo.exchange.common.message.CommonUtils;
 import bist.demo.exchange.common.TcpClient;
 import bist.demo.exchange.common.message.HexShower;
+import bist.demo.exchange.common.message.MessageParser;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -31,10 +32,19 @@ public class OuchGateway {
     private boolean connectionStatus;
     private int heartBeatSeq;
     private ScheduledExecutorService threadPool;
+    private final MessageParser messageParser;
 
     public OuchGateway(String host, int port) {
         this.host = host;
         this.port = port;
+
+        //using method reference to pass the handleDefaultMessage method
+        //ouchGateway messageHandler'ı implemente etmese de bu metodun imzası
+        //interface'teki metodla aynı olduğu için yapılabiliyor.
+        //ama bu yalnızca interface'te tek metod varsa geçerli.
+        messageParser = new MessageParser(this::handleDefaultMessage);
+        messageParser.addParser(Command.HEARTBEAT, this::handleHeartbeat);
+
         gatewayIndex = ++index;
     }
 
@@ -64,8 +74,8 @@ public class OuchGateway {
     private void sendHeartbeat() {
         //System.out.printf("OuchGateWay %d\n", gatewayIndex);
         ByteBuffer data = ByteBuffer.allocate(4);
-        data.putInt(heartBeatSeq++);
-        ByteBuffer byteBuffer = CommonUtils.createOuchMessage(COMMAND.HEARTBEAT.getValue(), data.array());
+        data.putInt(heartBeatSeq);
+        ByteBuffer byteBuffer = CommonUtils.createOuchMessage(Command.HEARTBEAT.getValue(), data.array());
         try {
             tcpClient.send(byteBuffer);
             System.out.printf("Sent size: %d\n", byteBuffer.array().length);
@@ -80,25 +90,26 @@ public class OuchGateway {
 
     public void handleResponse(){
         ByteBuffer buffer = tcpClient.handleResponses();
+        messageParser.parseReceivedMessage(buffer);
+    }
 
-        if(buffer == null) return;
-        if(CommonUtils.isInvalidOuchMessage(buffer)) return;
+    private ByteBuffer handleDefaultMessage(Command command, ByteBuffer data) {
+        System.out.printf("Un-registered %s command received. Size is %d\n", command, data.remaining());
+        return null;
+    }
 
-        int size = buffer.remaining();
-        System.out.printf("Received size: %d\n", size);
+    private ByteBuffer handleHeartbeat(Command command, ByteBuffer data) {
+        int sequenceNumber = data.getInt();
+        System.out.printf("Heartbeat command received. sequence number: %d\n", sequenceNumber);
 
-        byte[] receivedBytes = new byte[size];
-        buffer.get(receivedBytes);
-
-        boolean crcResult = CommonUtils.CRCChecker(receivedBytes);
-
-        if(crcResult){
-            System.out.printf("CRC is true. Received buffer: %s\n", HexShower.convertToHexString(receivedBytes));
+        if(sequenceNumber == heartBeatSeq + 1){
+            heartBeatSeq++;
         }
-        else{
-            System.out.println("CRC is false");
+        else {
+            System.out.printf("Heartbeat sequence number mismatch. Expected: %d, Received: %d\n", heartBeatSeq + 1, sequenceNumber);
         }
-        System.out.println("---------------------------------------------");
+
+        return null;
     }
 
     public void stop() throws IOException {

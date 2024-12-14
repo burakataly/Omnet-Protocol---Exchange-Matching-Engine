@@ -13,14 +13,11 @@ import java.nio.ByteBuffer;
 * gönderilecek mesaj da bunun üzerinden gidiyor.
 */
 public class ClientHandle {
-    private static final int BUFFER_CAPACITY = 4096;
-    private static final int KEEP_ALIVE_INTERVAL_MS = 30_000;
-
     private final Socket socket; //client'ın socketi
 
     private final BufferHandler bufferHandler;
 
-    private final ByteBuffer buffer = ByteBuffer.allocate(BUFFER_CAPACITY);
+    private final ByteBuffer buffer = ByteBuffer.allocate(Constants.BUFFER_CAPACITY);
 
     private long expireTime;
 
@@ -32,7 +29,7 @@ public class ClientHandle {
     }
 
     private void setExpireTime() {
-        expireTime = System.currentTimeMillis() + KEEP_ALIVE_INTERVAL_MS;
+        expireTime = System.currentTimeMillis() + Constants.KEEP_ALIVE_INTERVAL_MS;
     }
 
     private boolean isExpired() {

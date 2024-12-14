@@ -5,7 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab0b5aee-07b2-4309-93c6-11b4fec87292" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/message/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/message/MessageHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/message/MessageParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/message/MessageParserResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/Constants.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/message/MessageHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/message/MessageParser.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/message/MessageParserResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/ClientHandle.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/ClientHandle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/TcpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/TcpClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/TcpServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/message/COMMAND.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/message/CommonUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/common/src/main/java/bist/demo/exchange/common/message/CommonUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/ClientHandle.class" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/ClientHandle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/TcpClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/TcpClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/TcpServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/TcpServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/message/COMMAND.class" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/message/COMMAND.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/message/CommonUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/common/target/classes/bist/demo/exchange/common/message/CommonUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/matching-engine/src/main/java/bist/demo/exchange/matching/engine/MatchingEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/matching-engine/src/main/java/bist/demo/exchange/matching/engine/MatchingEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/matching-engine/target/classes/bist/demo/exchange/matching/engine/MatchingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/matching-engine/target/classes/bist/demo/exchange/matching/engine/MatchingEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/ouch-gateway/src/main/java/bist/demo/exchange/ouch/gateway/OuchGateway.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/ouch-gateway/src/main/java/bist/demo/exchange/ouch/gateway/OuchGateway.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange/ouch-gateway/target/classes/bist/demo/exchange/ouch/gateway/OuchGateway.class" beforeDir="false" afterPath="$PROJECT_DIR$/exchange/ouch-gateway/target/classes/bist/demo/exchange/ouch/gateway/OuchGateway.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solid/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/solid/src/main/java/bist/demo/nonsolid/Employee.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/solid/src/main/java/bist/demo/nonsolid/NonSolidMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/solid/src/main/java/bist/demo/solid/Employee.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/solid/src/main/java/bist/demo/solid/SalaryCalculator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/solid/src/main/java/bist/demo/solid/SolidMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/solid/src/main/java/bist/demo/solid/Worker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/solid/src/main/java/bist/demo/solid/employees/FinanceEmployee.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/solid/src/main/java/bist/demo/solid/employees/HREmployee.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/solid/src/main/java/bist/demo/solid/employees/ITEmployee.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,15 +52,27 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "burakataly"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/burakataly/tcp-custom-protocols-implementation.git",
+    "accountId": "947cd266-815b-4ce0-89be-966b715fc328"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -32,19 +81,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.MatchingEngineMain.executor&quot;: &quot;Run&quot;,
-    &quot;Application.OuchGatewayMain.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/atala/OneDrive - Yildiz Technical University/Masaüstü/lisans_dersler/lisans_3.1/BMÖK/semester_project&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.MatchingEngineMain.executor": "Run",
+    "Application.OuchGatewayMain.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/atala/OneDrive - Yildiz Technical University/Masaüstü/lisans_dersler/lisans_3.1/BMÖK/semester_project",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.OuchGatewayMain">
     <configuration name="MatchingEngineMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bist.demo.exchange.matching.engine.MatchingEngineMain" />
