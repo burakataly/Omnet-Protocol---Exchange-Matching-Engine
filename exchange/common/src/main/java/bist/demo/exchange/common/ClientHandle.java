@@ -68,32 +68,41 @@ public class ClientHandle {
         }
 
         setExpireTime(); //bir dahaki mesaj için 30 sn mühlet
-        System.out.println("Server received" + size);
-        bufferHandler.handleMessage(buffer, this); //serverın handle etmesi için bytebuffer nesnesi gönderiliyo
 
+        bufferHandler.handleMessage(buffer, this); //serverın handle etmesi için bytebuffer nesnesi gönderiliyo
         return true;
     }
 
     private boolean readIncomingMessage(InputStream inputStream) {
-        byte readByte;
-        boolean startByte = false;
-        buffer.clear();
+        int readByte;
 
-        try {
-            while (inputStream.available() > 0) {
-                readByte = (byte) inputStream.read();
-                if(readByte == -1) break;
-//                if (readByte == Constants.START_BYTE){
-//                    if(startByte) break;
-//                    else startByte = true;
-//                }
-                buffer.put(readByte);
+        buffer.clear(); //bytebuffera yeni okunacak mesajı yazmadan önce temizliyo ve position 0'a set ediliyo
+
+        while (true) {
+
+            try {
+                if (inputStream.available() <= 0) {
+                    break;
+                }
+            } catch (IOException e) {
+                return false;
             }
-        } catch (IOException e) {
-            return false;
-        }
 
-        buffer.flip();
+            try {
+                readByte = inputStream.read(); //byte byte okuyo
+            } catch (IOException e) {
+                return false;
+            }
+
+            if (readByte == -1) {
+                break;
+            }
+
+            buffer.put((byte) readByte); //eğer okunan byteda sorun yoksa buffera yazıyo
+            //bu yazmadan sonra position 1 artar
+        }
+        buffer.flip(); //buffera yazma işi bittikten sonra okunabilmesi için buffer kapasitesini
+        //gösteren limit o anki positiona position ise 0'a set ediliyo
         return true;
     }
 

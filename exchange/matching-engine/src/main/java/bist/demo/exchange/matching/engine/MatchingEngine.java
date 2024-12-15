@@ -40,6 +40,8 @@ public class MatchingEngine implements BufferHandler {
     @Override
     public void handleMessage(ByteBuffer buffer, ClientHandle clientHandle) {
         ByteBuffer responseBuffer = messageParser.parseReceivedMessage(buffer);
+        if(responseBuffer == null) return;
+
         try{
             clientHandle.send(responseBuffer);
             System.out.printf("Sent size: %d\n", responseBuffer.array().length);
@@ -62,6 +64,7 @@ public class MatchingEngine implements BufferHandler {
         System.out.printf("Heartbeat command received. sequence number: %d\n", sequenceNumber);
         ByteBuffer dataBuffer = ByteBuffer.allocate(Constants.HEARTBEAT_DATA_LENGTH);
         dataBuffer.putInt(sequenceNumber + 1);
+        data.flip();
         return CommonUtils.createOuchMessage(command.getValue(), dataBuffer.array());
     }
 

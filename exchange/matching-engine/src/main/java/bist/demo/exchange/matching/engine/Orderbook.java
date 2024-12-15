@@ -40,10 +40,12 @@ public class Orderbook {
             OrderNode order = iterator.next();
             if(order.price == newOrder.price){
                 if(order.quantity == newOrder.quantity){
+                    newOrder.quantity = 0;
                     iterator.remove();
                 }
                 else if(order.quantity > newOrder.quantity){
                     order.quantity -= newOrder.quantity;
+                    newOrder.quantity = 0;
                 }
                 else{
                     newOrder.quantity -= order.quantity;
@@ -75,21 +77,15 @@ public class Orderbook {
     }
 
     private void addInOrder(LinkedList<OrderNode> list, OrderNode newNode, int comparator) {
-        System.out.println("Adding in order");
-        if(list.isEmpty()){
-            list.add(newNode);
-            System.out.println("Added in order " + newNode.price);
-            return;
-        }
         ListIterator<OrderNode> iterator = list.listIterator();
         while (iterator.hasNext()) {
             if ((iterator.next().price - newNode.price)  * comparator > 0) {
                 iterator.previous();
                 iterator.add(newNode);
-                System.out.println("Added in order " + newNode.price);
                 return;
             }
         }
+        list.add(newNode);
     }
 
     private static class OrderNode {

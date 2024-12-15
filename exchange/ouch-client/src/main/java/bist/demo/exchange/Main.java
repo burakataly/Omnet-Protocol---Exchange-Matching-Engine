@@ -44,6 +44,7 @@ public class Main {
     /*
      o:b,25@100
      o:s,20@105
+     o:s,20@100
      */
     private static void sendOrder(OuchClient ouchClient, String order) {
         String[] split = order.split(":");

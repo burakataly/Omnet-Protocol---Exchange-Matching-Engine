@@ -23,7 +23,7 @@ public class CommonUtils {
         int dataLength = data.length;
         ByteBuffer byteBuffer = ByteBuffer.allocate(dataLength + 1 + Constants.MESSAGE_LENGTH_EXCEPT_DATA_AND_COMMAND);
         byteBuffer.put((byte) 0xAA);
-        byteBuffer.putShort((short) (1 + data.length));
+        byteBuffer.putShort((short) (1 + dataLength));
         byteBuffer.put(command);
         byteBuffer.put(data);
         byteBuffer.put((byte) calculateCRC(byteBuffer.array())); //byteBuffer.array() tüm
