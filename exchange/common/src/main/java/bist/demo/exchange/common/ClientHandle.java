@@ -100,6 +100,9 @@ public class ClientHandle {
 
             buffer.put((byte) readByte); //eğer okunan byteda sorun yoksa buffera yazıyo
             //bu yazmadan sonra position 1 artar
+            if((byte) readByte == Constants.END_BYTE){
+                break;
+            }
         }
         buffer.flip(); //buffera yazma işi bittikten sonra okunabilmesi için buffer kapasitesini
         //gösteren limit o anki positiona position ise 0'a set ediliyo

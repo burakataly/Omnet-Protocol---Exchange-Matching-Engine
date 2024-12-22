@@ -60,6 +60,7 @@ public class MessageParser {
         }
         else{
             System.out.printf("ERROR: %s...\n", MessageParserResult.CRC_MISMATCH);
+            return null;
         }
 
         System.out.println("---------------------------------------------");
@@ -71,6 +72,13 @@ public class MessageParser {
         }
 
         receivedData.flip();
+
+        receivedMessage.get();
+        byte endByte = receivedMessage.get();
+        if(endByte != Constants.END_BYTE){
+            System.out.printf("ERROR: %s...\n", MessageParserResult.WRONG_MESSAGE_END);
+            return null;
+        }
 
         MessageHandler handler = parsers.get(command);
 
