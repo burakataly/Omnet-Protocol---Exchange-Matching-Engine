@@ -7,5 +7,4 @@ public enum MessageParserResult {
     WRONG_MESSAGE_START,
     UNKNOWN_COMMAND,
     CRC_MISMATCH,
-    WRONG_MESSAGE_END
 }

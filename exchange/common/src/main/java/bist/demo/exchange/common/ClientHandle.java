@@ -78,32 +78,39 @@ public class ClientHandle {
 
         buffer.clear(); //bytebuffera yeni okunacak mesajı yazmadan önce temizliyo ve position 0'a set ediliyo
 
-        while (true) {
-
-            try {
-                if (inputStream.available() <= 0) {
-                    break;
-                }
-            } catch (IOException e) {
+        try {
+            readByte = inputStream.read();
+            if(readByte == -1) return false;
+            if((byte) readByte != Constants.START_BYTE){
                 return false;
             }
 
-            try {
-                readByte = inputStream.read(); //byte byte okuyo
-            } catch (IOException e) {
-                return false;
+            buffer.put((byte) readByte);
+
+            byte[] dataLengthBytes = new byte[2];
+            for(int i = 0; i < 2; i++){
+                readByte = inputStream.read();
+                dataLengthBytes[i] = (byte) readByte;
+                if(readByte == -1) return false;
+                buffer.put((byte) readByte);
             }
 
-            if (readByte == -1) {
-                break;
+            short dataLength = (short) ((dataLengthBytes[0] << 8) | (dataLengthBytes[1] & 0xFF));
+
+            for(short i = 0; i < dataLength; i++){
+                readByte = inputStream.read();
+                if(readByte == -1) return false;
+                buffer.put((byte) readByte);
             }
 
-            buffer.put((byte) readByte); //eğer okunan byteda sorun yoksa buffera yazıyo
-            //bu yazmadan sonra position 1 artar
-            if((byte) readByte == Constants.END_BYTE){
-                break;
-            }
+            readByte = inputStream.read();
+            if(readByte == -1) return false;
+            buffer.put((byte) readByte); //crc byte
+
+        } catch (IOException e) {
+            return false;
         }
+
         buffer.flip(); //buffera yazma işi bittikten sonra okunabilmesi için buffer kapasitesini
         //gösteren limit o anki positiona position ise 0'a set ediliyo
         return true;

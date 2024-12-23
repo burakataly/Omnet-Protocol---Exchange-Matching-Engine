@@ -6,14 +6,14 @@ import java.nio.ByteBuffer;
 
 public class CommonUtils {
     public static boolean CRCChecker(byte[] array){
-        int expectedCRC = array[array.length - 2];
+        int expectedCRC = array[array.length - 1];
         int calculatedCRC = calculateCRC(array);
         return expectedCRC == calculatedCRC;
     }
 
     public static int calculateCRC(byte[] array){
         int calculatedCRC = array[0];
-        for (int i = 1; i < array.length - 2; i++) {
+        for (int i = 1; i < array.length - 1; i++) {
             calculatedCRC ^= array[i];
         }
         return calculatedCRC % 256;
@@ -30,7 +30,6 @@ public class CommonUtils {
         // allocate edilen bufferı array olarak döndürecek. yani crc için olan son
         // byte daha put edilmemiş ve çöp değerken de bu arrayde bulunacak. ama crc'yi input
         // dizinin son elemanı hariç hesapladığımdan doğru bir şekilde hesaplar
-        byteBuffer.put(Constants.END_BYTE);
         byteBuffer.flip();
         return byteBuffer;
     }
