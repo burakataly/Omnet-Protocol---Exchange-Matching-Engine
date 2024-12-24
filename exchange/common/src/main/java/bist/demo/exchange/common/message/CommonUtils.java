@@ -22,7 +22,7 @@ public class CommonUtils {
     public static ByteBuffer createOuchMessage(byte command, byte[] data){
         int dataLength = data.length;
         ByteBuffer byteBuffer = ByteBuffer.allocate(dataLength + 1 + Constants.MESSAGE_LENGTH_EXCEPT_DATA_AND_COMMAND);
-        byteBuffer.put((byte) 0xAA);
+        byteBuffer.put(Constants.START_BYTE);
         byteBuffer.putShort((short) (1 + dataLength));
         byteBuffer.put(command);
         byteBuffer.put(data);

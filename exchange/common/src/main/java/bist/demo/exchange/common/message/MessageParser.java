@@ -60,6 +60,7 @@ public class MessageParser {
         }
         else{
             System.out.printf("ERROR: %s...\n", MessageParserResult.CRC_MISMATCH);
+            return null;
         }
 
         System.out.println("---------------------------------------------");
@@ -71,6 +72,8 @@ public class MessageParser {
         }
 
         receivedData.flip();
+
+        receivedMessage.get();
 
         MessageHandler handler = parsers.get(command);
 
