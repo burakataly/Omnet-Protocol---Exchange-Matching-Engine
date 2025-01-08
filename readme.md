@@ -25,7 +25,7 @@ This project is a semester project for an occupational elective course. It imple
 - Handles protocol-specific message formatting.
 
 **OuchClient**:
-- The core Application layer of the client side.
+- The core Application Layer of the client side.
 - Sends buy/sell orders to the MatchingEngine through the OuchGateway.
 
 **TcpClient**:
