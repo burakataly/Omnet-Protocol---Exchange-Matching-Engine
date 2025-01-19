@@ -7,26 +7,26 @@ import java.util.ListIterator;
 
 public class Orderbook {
     private final String name;
-    private final LinkedList<OrderNode> buyOrders;
-    private final LinkedList<OrderNode> sellOrders;
-    private final LinkedList<OrderNode> matches;
+    private final LinkedList<OrderNode> buyOrderList;
+    private final LinkedList<OrderNode> sellOrderList;
+    private final LinkedList<OrderNode> matchList;
 
     public Orderbook(String name) {
         this.name = name;
-        buyOrders = new LinkedList<>();
-        sellOrders = new LinkedList<>();
-        matches = new LinkedList<>();
+        buyOrderList = new LinkedList<>();
+        sellOrderList = new LinkedList<>();
+        matchList = new LinkedList<>();
     }
 
     public void handleNewOrder(byte side, int quantity, int price) {
         OrderNode newOrder = new OrderNode(quantity, price);
         if(side == Constants.SIDE_BUY){
-            matchTheOrder(sellOrders, newOrder);
-            if(newOrder.quantity > 0) addInOrder(buyOrders, newOrder, -1);
+            matchTheOrder(sellOrderList, newOrder);
+            if(newOrder.quantity > 0) addInOrder(buyOrderList, newOrder, -1);
         }
         else if(side == Constants.SIDE_SELL){
-            matchTheOrder(buyOrders, newOrder);
-            if(newOrder.quantity > 0) addInOrder(sellOrders, newOrder, 1);
+            matchTheOrder(buyOrderList, newOrder);
+            if(newOrder.quantity > 0) addInOrder(sellOrderList, newOrder, 1);
         }
         else{
             throw new IllegalArgumentException("Invalid side. Must be 'B' or 'S'.");
@@ -54,18 +54,18 @@ public class Orderbook {
             }
         }
         if(quantity != newOrder.quantity){
-            matches.addFirst(new OrderNode(quantity - newOrder.quantity, newOrder.price));
+            matchList.addFirst(new OrderNode(quantity - newOrder.quantity, newOrder.price));
         }
     }
 
     public void print() {
         System.out.printf("Orderbook: %s\n", name);
         System.out.println("Matches");
-        printList(matches, "Match");
+        printList(matchList, "Match");
         System.out.println("Buy Orders");
-        printList(buyOrders, "Buy");
+        printList(buyOrderList, "Buy");
         System.out.println("Sell Orders");
-        printList(sellOrders, "Sell");
+        printList(sellOrderList, "Sell");
     }
 
     private void printList(LinkedList<OrderNode> list, String listName){

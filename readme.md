@@ -32,6 +32,11 @@ This project is a semester project for an occupational elective course. It imple
 - Manages the socket connection from client to server.
 - listens the raw byte data from the server and forwards it to the OuchGateway.
 
+**OrderBook Logic**:
+- Adds buy orders into buyOrderList in descending price order.
+- Adds sell orders into sellOrderList in ascending price order.
+- Matches buy and sell orders if prices are the same and adds the match into matchList.
+
 ## How to Run
 
 1. Run `MatchingEngineMain.java` to start the matching engine server.
